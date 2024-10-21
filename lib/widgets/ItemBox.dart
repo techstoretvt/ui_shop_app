@@ -1,4 +1,6 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_shop_app/pages/ProductPage.dart';
 
 class ItemBox extends StatelessWidget {
   const ItemBox({super.key});
@@ -31,14 +33,33 @@ class ItemBox extends StatelessWidget {
               color: Colors.red,
             )
           ]),
-          Container(
-            height: 130,
-            child: InkWell(
-              child: Image.network(
-                  "https://th.bing.com/th/id/R.d75a106d372379609dc697f56bf93cf5?rik=30JqqINK3RDVMA&pid=ImgRaw&r=0"),
-              onTap: () => Navigator.pushNamed(context, "product"),
-            ),
+          OpenContainer(
+            transitionType: ContainerTransitionType.fade,
+            transitionDuration: const Duration(milliseconds: 500),
+            openBuilder: (BuildContext mContext, VoidCallback _) {
+              return ProductPage();
+            },
+            closedBuilder: (BuildContext mContext, VoidCallback openContainer) {
+              return SizedBox(
+                height: 130,
+                child: InkWell(
+                  child: Image.network(
+                      "https://th.bing.com/th/id/R.d75a106d372379609dc697f56bf93cf5?rik=30JqqINK3RDVMA&pid=ImgRaw&r=0"),
+                  onTap: () => openContainer(),
+                ),
+              );
+            },
+            onClosed: null,
           ),
+
+          // Container(
+          //   height: 130,
+          //   child: InkWell(
+          //     child: Image.network(
+          //         "https://th.bing.com/th/id/R.d75a106d372379609dc697f56bf93cf5?rik=30JqqINK3RDVMA&pid=ImgRaw&r=0"),
+          //     onTap: () => Navigator.pushNamed(context, "product"),
+          //   ),
+          // ),
           Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 10),
@@ -61,7 +82,7 @@ class ItemBox extends StatelessWidget {
                 Icons.shopping_cart,
                 size: 20,
                 color: Colors.deepPurple,
-              )
+              ),
             ],
           )
         ],
